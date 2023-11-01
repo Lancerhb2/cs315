@@ -1,0 +1,77 @@
+
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .pokemon_list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+  }
+
+  .description {
+    text-align: center;
+  }
+
+  .number {
+    font-size: small;
+  }
+
+  .name {
+    font-size: large;
+  }
+
+  .ice {
+    color: #abedff;
+  }
+
+  .water {
+    color: #0da2ff;
+  }
+
+  .grass {
+    color: #00f56a;
+  }
+
+  .psychic {
+    color: #fb1fff;
+  }
+
+  .poison {
+    color: #d17dff;
+  }
+
+  .fire {
+    color: #d90000;
+  }
+
+  .dark {
+    color: #595959;
+  }
+
+  .electric {
+    color: #e8dc00;
+  }
+
+  .normal {
+    color: #aaaaaa;
+  }
