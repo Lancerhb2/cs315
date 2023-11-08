@@ -1,3 +1,15 @@
+:root {
+  --green-accent: #04AA6D;
+  --light-green-accent: #29f9ad;
+  --bg-color-secondary: #e05915;
+  --fg-color-main: #e6e9f0;
+  --radius-boxes: 5px;
+  --padding-boxes: 4px;
+  --fontsize-default: 18px;
+  --shadow-color: rgba(0,0,0,0.22);
+  --dropshadow: 6px 5px 20px 1px
+  var(--shadow-color);
+  }
 
 .nav {
     background-color: #333;
@@ -153,3 +165,61 @@
   .fairy {
     color: #ff91fb;
   }
+
+/* Table */
+
+table {
+  font-size: 0.8em;
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  border-bottom: 1px solid rgb(27, 29, 142);
+  text-align: left;
+}
+
+thead tr{
+  background-color: rgb(187, 187, 187);
+}
+
+th {
+  padding: 0.75em;
+}
+
+tbody tr {
+  background-color: aliceblue;
+  border-bottom: 1px solid white;
+  color: rgb(131, 141, 150);
+}
+
+tbody td {
+  padding: 0.75em;
+}
+
+tbody tr:nth-child(even) {
+  background-color: rgb(200, 200, 200);
+  color: rgb(100, 100, 100)
+}
+
+tbody tr:hover {
+  background-color: rgb(123, 123, 123);
+  color:rgb(246, 246, 246)
+}
+
+table caption {
+  font-weight: bold;
+  padding: 0.25em 0 0.25em 0;
+  text-align: left;
+  text-transform: uppercase;
+}
+
+/* Form */
+.focused {
+  background-color: var(--light-green-accent)
+}
+
+.wrong {
+  color: red;
+}
+
+.hidden {
+  display: none;
+}
