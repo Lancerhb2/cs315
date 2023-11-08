@@ -10,6 +10,7 @@
     overflow: hidden;
     position: sticky;
     top: 0;
+    display: wrap;
   }
   
   .nav a {
@@ -68,6 +69,12 @@
   .pokemon_list {
     display: grid;
     grid-template-columns: auto auto auto;
+  }
+
+  .pokemon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .image img {
@@ -210,10 +217,19 @@ table caption {
   background-color: var(--light-green-accent)
 }
 
-.wrong {
-  color: red;
+legend {
+  color: black;
 }
 
-.hidden {
-  display: none;
+fieldset {
+  color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  border: none;
+  margin: 2px;
+  
+}
+.formElement {
+  padding: 5px;
 }

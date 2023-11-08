@@ -26,19 +26,19 @@ function setElementBackground(e){
 /*Input Validation*/
 function evaulateInput(e) {
     // A boolean value to keep track whether the form should be submitted or not
-    const validInput = true;
+    let validInput = true;
     const pokemon = document.getElementById("f-pokemon").value;
     if (pokemon == null || pokemon == "") {
         e.preventDefault();
         validInput = false;
-        alert("You must enter a Pokemon")
+        alert("You must enter a Pokemon");
     }
 
     const generation = document.getElementById("f-generation").value;
     if (generation == "Choose a generation") {
         e.preventDefault();
         validInput = false;
-        alert("You must select a generation")
+        alert("You must select a generation");
     }
 
     const email = document.getElementById("f-email").value;
@@ -51,7 +51,7 @@ function evaulateInput(e) {
     if (!regularExpression.test(email)) {
         e.preventDefault();
         validInput = false;
-        alert("You must enter a valid email address")
+        alert("You must enter a valid email address");
     }
 
     /*Exit if Input is invalid*/

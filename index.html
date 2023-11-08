@@ -125,29 +125,33 @@
     <form id="pokemonForm">
         <fieldset>
             <Legend>Submit your favorite Pokémon!</Legend>
-            <label for="f-pokemon">Favorite Pokémon: </label>
-            <input type="text" name="fav-pokemon" placeholder="Pokémon" id="f-pokemon"/>
-
-            <label for="f-generation">Generation:</label>
-            <select name="generation" id="f-generation">
-                <option>Choose a generation</option>
-                <option>1st</option>
-                <option>2nd</option>
-                <option>3rd</option>
-                <option>5th</option>
-                <option>6th</option>
-                <option>7th</option>
-                <option>8th</option>
-                <option>9th</option>
-            </select>
-
-            <label for="f-email">Enter your email:</label>
-            <input type="text" name="f-email" placeholder="example@email.com" id="f-email"/>
-
-            <input type="submit">
-            <input type="reset">
+            <div class="formElement">
+                <label for="f-pokemon">Favorite Pokémon: </label>
+                <input type="text" name="fav-pokemon" placeholder="Pokémon" id="f-pokemon"/>
+            </div>
+            <div class="formElement">
+                <label for="f-generation">Generation:</label>
+                <select name="generation" id="f-generation">
+                    <option>Choose a generation</option>
+                    <option>1st</option>
+                    <option>2nd</option>
+                    <option>3rd</option>
+                    <option>5th</option>
+                    <option>6th</option>
+                    <option>7th</option>
+                    <option>8th</option>
+                    <option>9th</option>
+                </select>
+            </div>
+            <div class="formElement">
+                <label for="f-email">Enter your email:</label>
+                <input type="text" name="f-email" placeholder="example@email.com" id="f-email"/>
+            </div>
+            <div class="formElement">
+                <input type="submit">
+                <input type="reset">
+            </div>
         </fieldset>
     </form>
-
     
 </main>
