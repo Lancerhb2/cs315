@@ -6,7 +6,7 @@
 </head>
 <main>
     <div class="nav">
-        <a id="home_button" href="index.html"><img src="resources/poke_ball.png" alt="Home Button"></a>
+        <a id="home_button" href="index.html"><img src="resources/poke_ball.png" alt="Home"></a>
         <a class="active" href="first.html">1st Generation</a>
         <a href="second.html">2nd Generation</a>
         <a href="third.html">3rd Generation</a>
@@ -21,7 +21,10 @@
     <div class="pokemon_list">
         <div class="pokemon">
             <div class="image">
-                <img src="resources/gen1/bulbasaur.png">
+                <img srcset="resources/gen1/bulbasaurSmall.png 250w, resources/gen1/bulbasaur.png 475w"
+                sizes="(max-width: 600px) 250px, 475px"
+                src="resources/gen1/bulbasaur.png"
+                alt ="A picture of Bulbasaur">
             </div>
             <div class="description">
                 <p class="number">#0001</p>
@@ -35,7 +38,12 @@
         </div>
         <div class="pokemon">
             <div class="image">
-                <img src="resources/gen1/meowth.png">
+                <div class="image">
+                    <img srcset="resources/gen1/meowthSmall.png 250w, resources/gen1/meowth.png 475w"
+                    sizes="(max-width: 600px) 250px, 475px"
+                    src="resources/gen1/meowth.png"
+                    alt ="A picture of Meowth">
+                </div>
             </div>
             <div class="description">
                 <p class="number">#0052</p>
@@ -47,7 +55,10 @@
         </div>
         <div class="pokemon">
             <div class="image">
-                <img src="resources/gen1/dewgong.png">
+                <img srcset="resources/gen1/dewgongSmall.png 250w, resources/gen1/dewgong.png 475w"
+                    sizes="(max-width: 600px) 250px, 475px"
+                    src="resources/gen1/dewgong.png"
+                    alt ="A picture of Dewgong">
             </div>
             <div class="description">
                 <p class="number">#0087</p>
@@ -61,7 +72,10 @@
         </div>
         <div class="pokemon">
             <div class="image">
-                <img src="resources/gen1/mew.png">
+                <img srcset="resources/gen1/mewSmall.png 250w, resources/gen1/mew.png 475w"
+                    sizes="(max-width: 600px) 250px, 475px"
+                    src="resources/gen1/mew.png"
+                    alt ="A picture of Mew">
             </div>
             <div class="description">
                 <p class="number">#0151</p>
