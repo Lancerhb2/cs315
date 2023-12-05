@@ -8,20 +8,8 @@
     </head>
     <body>
         
-        <header>
-            <div class="nav">
-                <a id="home_button" href="index.html"><img src="resources/poke_ball.png" alt="Home"></a>
-                <a href="first.html">1st Generation</a>
-                <a href="second.html">2nd Generation</a>
-                <a href="third.html">3rd Generation</a>
-                <a href="fourth.html">4th Generation</a>
-                <a href="fifth.html">5th Generation</a>
-                <a href="sixth.html">6th Generation</a>
-                <a href="seventh.html">7th Generation</a>
-                <a href="eighth.html">8th Generation</a>
-                <a href="ninth.html">9th Generation</a>
-            </div>  
-        </header>
+    <?php include_once "header.php"; ?>
+        
         <main>
             <h1>
                 Welcome to PokéGenerations!
