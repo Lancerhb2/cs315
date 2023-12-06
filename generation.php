@@ -20,7 +20,7 @@
             echo "</div>";
         } else {
             echo "<h1> Error 404</h1>";
-            echo "<p></p>The requested generation was not found</p>";
+            echo "<p>The requested generation was not found</p>";
             http_response_code(404); //shows resposne code
         }
     ?>

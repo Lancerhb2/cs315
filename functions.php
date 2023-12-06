@@ -1,7 +1,5 @@
 <?php
 
-require_once('pokemon.php');
-
 // Taken from https://code-boxx.com/how-to-debug-php-code/
 // (A) ERROR REPORTING LEVEL
 // https://www.php.net/manual/en/errorfunc.constants.php
@@ -15,6 +13,71 @@ ini_set("error_log", __DIR__ . DIRECTORY_SEPARATOR . "error.log"); // LOG FILE
  
 // (C) DISPLAY ERROR MESSAGES
 ini_set("display_errors", 1);
+
+class Pokemon {
+    private $id;
+    public $name;
+    private $type1;
+    private $type2;
+    private $generation;
+    private $price;
+    private $memberPrice;
+
+    /*
+    public function __construct($id, $name, $type1, $type2, $generation, $price, $memberPrice) {
+        $this->id = $id;
+        $this->name = $name;
+        $this->type1 = $type1;
+        $this->type2 = $type2;
+        $this->generation = $generation;
+        $this->price = $price;
+        $this->memberPrice = $memberPrice;
+    }
+    */
+    public function __construct($sqlRow) {
+        $this->id = $sqlRow['id'];
+        $this->name = $sqlRow['name'];
+        $this->type1 = $sqlRow['type1'];
+        $this->type2 = $sqlRow['type2'];
+        $this->generation = $sqlRow['generation'];
+        $this->price = $sqlRow['price'];
+        $this->memberPrice = $sqlRow['member_price'];
+    }
+
+    public function getCard() : string {
+        $type1Lower = strtolower($this->type1);
+        $fileName = str_replace(' ', '_', $this->name);
+        $output = <<<Pokemon
+        <a href="pokemon.php?id={$this->id}">
+        <div class="pokemon">
+            <div class="image">
+                <img srcset="resources/gen{$this->generation}/{$fileName}Small.png 250w, resources/gen{$this->generation}/{$fileName}.png 475w"
+                    sizes="(max-width: 600px) 250px, 475px"
+                    src="resources/gen9/{$this->name}.png"
+                    alt ="A picture of {$this->name}">
+            </div>
+            <div class="description">
+                <p>{$this->generation}, {$this->price}, {$this->memberPrice}</p>
+                <p class="number">#{$this->id}</p>
+                <p class="name">{$this->name}</p>
+                <p>
+                    <span class="{$type1Lower}">$this->type1</span>
+        Pokemon;
+        if (strlen($this->type2) > 0) {
+            $type2Lower = strtolower($this->type2);
+            $output .= <<<TwoTypes
+             & 
+                            <span class="{$type2Lower}">$this->type2</span>
+            TwoTypes;
+        }
+        $output .= <<<ENDTAGS
+                </p>
+            </div>
+        </div>
+        ENDTAGS;
+        return $output;
+    }
+}
 
 function pdo_connect_mysql() {
     // Update the details below with your MySQL details
@@ -48,6 +111,21 @@ function getPokemonByGeneration($generation) {
         $pokemon = new Pokemon($pokeman);
         echo $pokemon->getCard();
     }
+}
+
+/** Return a Pokemon object or FALSE if the ID does not exist. */
+function getPokemonByID($id) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('SELECT * FROM pokemon WHERE id=?');
+    $stmt->bindValue(1, $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $pokemonString = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($pokemonString) {
+        $pokemon = new Pokemon($pokemonString);
+        return $pokemon;
+    }
+    return false;
 }
 
 ?>

@@ -1,8 +1,3 @@
-<?php
-require_once('pokemon.php');
-
-?>
-
 <!DOCTYPE html>
 <html>
     <head>
