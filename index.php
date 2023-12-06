@@ -1,3 +1,8 @@
+<?php
+require_once('pokemon.php');
+
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -7,7 +12,7 @@
         <meta charset="UTF-8" />
     </head>
     <body>
-        
+    
     <?php include_once "header.php"; ?>
         
         <main>
@@ -147,5 +152,6 @@
             
         </main>
         <script src="form.js"></script>
+
     </body>
 </html>
