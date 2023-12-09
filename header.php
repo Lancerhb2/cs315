@@ -10,5 +10,7 @@
                 <a href="generation.php?generation=7">7th Generation</a>
                 <a href="generation.php?generation=8">8th Generation</a>
                 <a href="generation.php?generation=9">9th Generation</a>
+                <a href="createAccount.php">Create Account</a>
+                <a href="login.php">Login</a>
             </div>  
         </header>

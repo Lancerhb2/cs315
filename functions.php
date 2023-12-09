@@ -79,6 +79,13 @@ class Pokemon {
     }
 }
 
+function test_input($data) {
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
+}
+
 function pdo_connect_mysql() {
     // Update the details below with your MySQL details
     $DATABASE_HOST = 'localhost';
@@ -99,6 +106,33 @@ function pdo_connect_mysql() {
     }
 }
 
+/** Checks if an email is used. */
+function checkEmailIsUsed($email) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('SELECT 1 FROM users WHERE email=?');
+    $stmt->bindValue(1, $email, PDO::PARAM_STR);
+    $stmt->execute();
+    $returnedEmail = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = null;
+    if ($returnedEmail == false) {
+        return false;
+    }
+
+    return true;
+}
+
+function createUser($name, $email, $password) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('INSERT INTO `users` (`name`, `email`, `password`) VALUES
+    (:name, :email, :password);');
+    $stmt->bindParam(':name', $name, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
+}
 
 function getPokemonByGeneration($generation) {
     $pdo = pdo_connect_mysql();
@@ -107,6 +141,7 @@ function getPokemonByGeneration($generation) {
     $stmt->bindValue(1, $generation, PDO::PARAM_INT);
     $stmt->execute();
     $firstFour = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $pdo = null;
     foreach ($firstFour as $pokeman) {
         $pokemon = new Pokemon($pokeman);
         echo $pokemon->getCard();
@@ -121,6 +156,7 @@ function getPokemonByID($id) {
     $stmt->bindValue(1, $id, PDO::PARAM_INT);
     $stmt->execute();
     $pokemonString = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = null;
     if ($pokemonString) {
         $pokemon = new Pokemon($pokemonString);
         return $pokemon;
