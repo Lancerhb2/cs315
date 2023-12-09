@@ -18,7 +18,6 @@
         }
         if (isset($_GET['id'])) {
             $pokemon = getPokemonByID($_GET['id']);
-            
             if (!$pokemon) {
                 noPokemon();
             } else {
