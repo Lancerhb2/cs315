@@ -2,7 +2,7 @@
 
 include_once "functions.php";
 // define variables and set to empty values
-$name = $email = $password = "";
+$name = $email = $password = $successMsg = "";
 $nameErr = $emailErr = $passwordErr = "";
 
 // Server side validation
@@ -40,6 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nameErr) && empty($emailErr) && empty($passwordErr)) {
         if (!checkEmailIsUsed($email)) {
             createUser($name, $email, $password);
+            $successMsg = "Success! Account Created.";
             //Login, redirect maybe
         } else {
             $emailErr = "This email is already used";
@@ -84,6 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="formElement">
                         <input type="submit">
                         <input type="reset">
+                        <span class="error"><?php echo $successMsg ?></span>
                     </div>
                 </fieldset>
             </form>

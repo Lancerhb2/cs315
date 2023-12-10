@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // Taken from https://code-boxx.com/how-to-debug-php-code/
 // (A) ERROR REPORTING LEVEL
@@ -45,6 +46,11 @@ class Pokemon {
     }
 
     public function getCard() : string {
+        if ($_SESSION["isLoggedIn"]) {
+            $displayPrice = $this->memberPrice;
+        } else {
+            $displayPrice = $this->price;
+        }
         $type1Lower = strtolower($this->type1);
         $fileName = str_replace(' ', '_', $this->name);
         $output = <<<Pokemon
@@ -57,7 +63,7 @@ class Pokemon {
                     alt ="A picture of {$this->name}">
             </div>
             <div class="description">
-                <p>{$this->generation}, {$this->price}, {$this->memberPrice}</p>
+                <p>{$displayPrice}</p>
                 <p class="number">#{$this->id}</p>
                 <p class="name">{$this->name}</p>
                 <p>
@@ -75,6 +81,14 @@ class Pokemon {
             </div>
         </div>
         ENDTAGS;
+        $output .= <<<Buy
+        <form action="cart.php" method="post">
+            <input type="number" name="quantity" value="1" min="1">
+            <input type="hidden" name="product_id" value="{$this->id}">
+            <input type="submit" value="Add To Cart">
+        </form>
+        
+        Buy;
         return $output;
     }
 }
@@ -132,6 +146,23 @@ function createUser($name, $email, $password) {
     $stmt->bindParam(':password', $password, PDO::PARAM_STR);
     $stmt->execute();
     $pdo = null;
+}
+
+function loginUser($email, $password) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('SELECT 1 FROM `users` WHERE email=:email AND password=:password');
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->bindParam(':password', $password, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $returnedEmail = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = null;
+    if ($returnedEmail == true) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 function getPokemonByGeneration($generation) {
