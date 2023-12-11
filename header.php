@@ -13,15 +13,16 @@
                 <a href="cart.php">Shopping Cart</a>
                 <?php
                 session_start();
-                if ($_SESSION["isLoggedIn"] == false) {
+                if (isset($_SESSION["isLoggedIn"]) && $_SESSION["isLoggedIn"] == true) {
+                    echo <<<LoginInfo
+                        <a href="account.php">Account</a>
+                    LoginInfo;
+                } else {
                     echo <<<LoginInfo
                         <a href="createAccount.php">Create Account</a>
                         <a href="login.php">Login</a>
                     LoginInfo;
-                } else {
-                    echo <<<LoginInfo
-                        <a href="account.php">Account</a>
-                    LoginInfo;
+                    
                 }
                 ?>
             </div>  
