@@ -46,7 +46,7 @@ class Pokemon {
     }
 
     public function getCard() : string {
-        if ($_SESSION["isLoggedIn"]) {
+        if (isset($_SESSION["isLoggedIn"])) {
             $displayPrice = $this->memberPrice;
         } else {
             $displayPrice = $this->price;
@@ -91,6 +91,17 @@ class Pokemon {
         Buy;
         return $output;
     }
+}
+
+class User {
+    public $name;
+    public $email;    
+
+    public function __construct($sqlRow) {
+        $this->email = $sqlRow['email'];
+        $this->name = $sqlRow['name'];
+    }
+
 }
 
 function test_input($data) {
@@ -163,6 +174,48 @@ function loginUser($email, $password) {
     } else {
         return false;
     }
+}
+
+function fetchUser($email) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('SELECT `name`, `email` FROM `users` WHERE email=:email');
+    $stmt->bindParam(':email', $email, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $returnedRow = $stmt->fetch(PDO::FETCH_ASSOC);
+    $pdo = null;
+    return new User($returnedRow);
+}
+
+function updateUserName($user, $newName) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('UPDATE `users` SET name=:newName WHERE email=:email');
+    $stmt->bindParam(':newName', $newName, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
+}
+
+function updateEmail($user, $newEmail) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('UPDATE `users` SET email=:newEmail WHERE email=:email');
+    $stmt->bindParam(':newEmail', $newEmail, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
+}
+
+function updatePassword($user, $newPassword) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('UPDATE `users` SET password=:newPassword WHERE email=:email');
+    $stmt->bindParam(':newPassword', $newPassword, PDO::PARAM_STR);
+    $stmt->bindParam(':email', $user->email, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
 }
 
 function getPokemonByGeneration($generation) {

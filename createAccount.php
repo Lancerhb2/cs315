@@ -40,7 +40,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($nameErr) && empty($emailErr) && empty($passwordErr)) {
         if (!checkEmailIsUsed($email)) {
             createUser($name, $email, $password);
-            $successMsg = "Success! Account Created.";
+            $successMsg = "Success! Account Created. You are now logged in!";
+            $_SESSION["isLoggedIn"] = true;
+            $_SESSION["currentUser"] = fetchUser($email);
             //Login, redirect maybe
         } else {
             $emailErr = "This email is already used";

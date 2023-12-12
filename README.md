@@ -31,3 +31,4 @@
     1. The filepath may change on your system. This is whereever the php executable is located.
     2. VSCode gave me a notification that brought me to the `settings.json` file. This allows VSCode to lint and check for errors.
     3. Not the best error messages, but knowing an error exists is better than nothing.
+3. When using a session with objects as a session variable, the `include` statement must before `session_start()`.

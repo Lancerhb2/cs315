@@ -1,12 +1,13 @@
 <?php
+include_once "functions.php";
 session_start();
 
-include_once "functions.php";
 // define variables and set to empty values
 $email = $password = $loginMsg = "";
 $emailErr = $passwordErr = "";
 
 // Server side validation
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (empty($_POST["email"])) {
         $emailErr = "Email is required";
     } else {
@@ -23,12 +24,13 @@ $emailErr = $passwordErr = "";
         if (loginUser($email, $password)) {
             $loginMsg = "Successfully logged in.";
             $_SESSION["isLoggedIn"] = true;
+            $_SESSION["currentUser"] = fetchUser($email);
         } else {
             $loginMsg = "Incorrect username/password.";
         }
 
     }
-
+}
 ?>
 
 <!DOCTYPE html>
