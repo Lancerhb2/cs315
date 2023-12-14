@@ -7,6 +7,9 @@ $emailMsg = $nameMsg = $passwordMsg = "";
 $emailErr = $nameErr = $passwordErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["logoutSubmission"])) {
+        session_unset();
+    }
     if (isset($_POST["emailSubmission"])) {
         if (empty($_POST["email"])) {
             $emailErr = "Email is required";
@@ -57,6 +60,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+if (isset($_SESSION["isLoggedIn"]) == false) {
+    header("Location: login.php");
+    die();
+}
     
 
 ?>
@@ -71,6 +79,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <?php include_once "header.php"; ?>
     <h1>Hello <?php echo $_SESSION["currentUser"]->name; ?></h1>
+
+    <h2>Logout</h2>
+
+    <form id="logoutForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <fieldset>
+                    <Legend>Click here to logout</Legend>
+                    <input type="hidden" name="logoutSubmission" value="yes">
+                    <div class="formElement">
+                        <input type="submit" value="Logout">
+                    </div>
+                </fieldset>
+            </form>
+
     <h2>Account Settings</h2>
 
     <h3>Change Email</h3>
