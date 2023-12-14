@@ -23,7 +23,8 @@
 4. Run the sql command in `pokemon.sql` in the SQL query tab
     1. This creates a table called `pokemon`
     2. If you ever need to make changes, run the SQL query `DROP TABLE pokemon` to delete the table completely. Then rerun command in`pokemon.sql`.
-5. Considering default settings are used, the website should work
+5. Repeat for all of the `.sql` files.
+6. Considering default settings are used, the website should work
 
 ## Useful Tips for Programming
 1. The first 20 lines or so in "functions.php" allows php to output errors onto your html page. Very helpful for debugging.
