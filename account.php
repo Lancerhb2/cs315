@@ -36,10 +36,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             $newName = test_input($_POST["name"]);
         }
-        updateUserName($_SESSION["currentUser"], $newName);
-        $nameMsg = "Name successfully updated";
-        //Update user stored in session
-        $_SESSION["currentUser"] = fetchUser($_SESSION["currentUser"]->email);
+        if (empty($nameErr)) {
+            updateUserName($_SESSION["currentUser"], $newName);
+            $nameMsg = "Name successfully updated";
+            //Update user stored in session
+            $_SESSION["currentUser"] = fetchUser($_SESSION["currentUser"]->email);
+        }
     }
 
     if (isset($_POST["passwordSubmission"])) {
@@ -95,60 +97,60 @@ if (isset($_SESSION["isLoggedIn"]) == false) {
     <h2>Account Settings</h2>
 
     <h3>Change Email</h3>
-    <form id="emailForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="emailForm" method="post" class="hasEmail" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <fieldset>
                     <Legend>Enter your new Email</Legend>
                     
                     <div class="formElement">
                         <label for="email">Name:</label>
-                        <input type="text" name="email" placeholder="example@example.com" id="f-name" value="<?php echo $_SESSION["currentUser"]->email ?>"/>
-                        <span class="error"><?php echo $emailErr ?></span>
+                        <input type="text" name="email" placeholder="example@example.com" id="f-email" value="<?php echo $_SESSION["currentUser"]->email ?>"/>
+                        <span class="error" id="f-email-err"><?php echo $emailErr ?></span>
                     </div>
                     <input type="hidden" name="emailSubmission" value="yes">
                     <div class="formElement">
                         <input type="submit">
                         <input type="reset">
-                        <span class="error"><?php echo $emailMsg ?></span>
+                        <span class="success"><?php echo $emailMsg ?></span>
                     </div>
                 </fieldset>
             </form>
 
     <h3>Change Name</h3>
-    <form id="nameForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="nameForm" method="post" class="hasName" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <fieldset>
                     <Legend>Enter your new Name</Legend>
                     
                     <div class="formElement">
                         <label for="name">Name:</label>
                         <input type="text" name="name" placeholder="John Smith" id="f-name" value="<?php echo $_SESSION["currentUser"]->name ?>"/>
-                        <span class="error"><?php echo $nameErr ?></span>
+                        <span class="error" id="f-name-err" ><?php echo $nameErr ?></span>
                     </div>
                     <input type="hidden" name="nameSubmission" value="yes">
                     <div class="formElement">
                         <input type="submit">
                         <input type="reset">
-                        <span class="error"><?php echo $nameMsg ?></span>
+                        <span class="success" ><?php echo $nameMsg ?></span>
                     </div>
                 </fieldset>
             </form>
 
     <h3>Change Password</h3>
-    <form id="passwordForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="passwordForm" method="post" class="hasPassword"" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <fieldset>
                     <Legend>Enter your new Password</Legend>
                     
                     <div class="formElement">
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="f-password"/>
-                        <span class="error"><?php echo $passwordErr ?></span>
+                        <span class="error" id="f-password-err"><?php echo $passwordErr ?></span>
                     </div>
                     <input type="hidden" name="passwordSubmission" value="yes">
                     <div class="formElement">
                         <input type="submit">
                         <input type="reset">
-                        <span class="error"><?php echo $passwordMsg ?></span>
+                        <span class="success"><?php echo $passwordMsg ?></span>
                     </div>
                 </fieldset>
             </form>
-
+    <script src="genericForm.js"></script>
 </main>

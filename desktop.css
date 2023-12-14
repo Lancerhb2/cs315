@@ -233,3 +233,7 @@ fieldset {
 .formElement {
   padding: 5px;
 }
+
+.error {
+  color: red;
+}

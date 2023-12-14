@@ -31,6 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     }
 }
+
+if (isset($_SESSION["isLoggedIn"]) == true) {
+    header("Location: account.php");
+    die();
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,24 +51,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <h2>Account Login</h2>
 
-    <form id="pokemonForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="pokemonForm" method="post" class="hasEmail hasPassword" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <fieldset>
                     <Legend>Enter your Account Information</Legend>
                     <div class="formElement">
                         <label for="email">Email:</label>
                         <input type="text" name="email" placeholder="example@email.com" id="f-email" value="<?php echo $email ?>"/>
-                        <span class="error"><?php echo $emailErr ?></span>
+                        <span class="error" id="f-email-err"><?php echo $emailErr ?></span>
                     </div>
                     <div class="formElement">
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="f-password"/>
-                        <span class="error"><?php echo $passwordErr ?></span>
+                        <span class="error" id="f-password-err"><?php echo $passwordErr ?></span>
                     </div>
                     <div class="formElement">
                         <input type="submit">
                         <input type="reset">
-                        <span class="error"><?php echo $loginMsg ?></span>
+                        <span class="success"><?php echo $loginMsg ?></span>
                     </div>
                 </fieldset>
             </form>
+
+    <script src="genericForm.js"></script>
 </main>
