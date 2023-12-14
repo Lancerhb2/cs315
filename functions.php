@@ -45,6 +45,14 @@ class Pokemon {
         $this->memberPrice = $sqlRow['member_price'];
     }
 
+    public function getPrice() {
+        if (isset($_SESSION["isLoggedIn"])) {
+            return $this->memberPrice;
+        } else {
+            return $this->price;
+        }
+    }
+
     public function getCard() : string {
         if (isset($_SESSION["isLoggedIn"])) {
             $displayPrice = $this->memberPrice;
@@ -54,7 +62,7 @@ class Pokemon {
         $type1Lower = strtolower($this->type1);
         $fileName = str_replace(' ', '_', $this->name);
         $output = <<<Pokemon
-        <a href="pokemon.php?id={$this->id}">
+        <a>
         <div class="pokemon">
             <div class="image">
                 <img srcset="resources/gen{$this->generation}/{$fileName}Small.png 250w, resources/gen{$this->generation}/{$fileName}.png 475w"
@@ -76,22 +84,70 @@ class Pokemon {
                             <span class="{$type2Lower}">$this->type2</span>
             TwoTypes;
         }
+        $output .= <<<Buy
+        <form action="cart.php" method="post">
+            <input type="number" name="quantity" value="1" min="1">
+            <input type="hidden" name="product_id" value="{$this->id}">
+            <input type="submit" name="to_cart" value="Add To Cart">
+        </form>
+        Buy;
         $output .= <<<ENDTAGS
                 </p>
             </div>
         </div>
         ENDTAGS;
+        
+        return $output;
+    }
+
+    public function getCartCard() : string {
+        if (isset($_SESSION["isLoggedIn"])) {
+            $displayPrice = $this->memberPrice;
+        } else {
+            $displayPrice = $this->price;
+        }
+        $type1Lower = strtolower($this->type1);
+        $fileName = str_replace(' ', '_', $this->name);
+        $output = <<<Pokemon
+        <a>
+        <div class="pokemon">
+            <div class="image">
+                <img srcset="resources/gen{$this->generation}/{$fileName}Small.png 250w, resources/gen{$this->generation}/{$fileName}.png 475w"
+                    sizes="(max-width: 600px) 250px, 475px"
+                    src="resources/gen9/{$this->name}.png"
+                    alt ="A picture of {$this->name}">
+            </div>
+            <div class="description">
+                <p>{$displayPrice}</p>
+                <p class="number">#{$this->id}</p>
+                <p class="name">{$this->name}</p>
+                <p>
+                    <span class="{$type1Lower}">$this->type1</span>
+        Pokemon;
+        if (strlen($this->type2) > 0) {
+            $type2Lower = strtolower($this->type2);
+            $output .= <<<TwoTypes
+             & 
+                            <span class="{$type2Lower}">$this->type2</span>
+            TwoTypes;
+        }
         $output .= <<<Buy
         <form action="cart.php" method="post">
-            <input type="number" name="quantity" value="1" min="1">
+            <input type="number" name="quantity" value="{$_SESSION['cart'][$this->id]}" min="0">
             <input type="hidden" name="product_id" value="{$this->id}">
-            <input type="submit" value="Add To Cart">
+            <input type="submit" name="to_cart" value="Update Quantity">
         </form>
-        
         Buy;
+        $output .= <<<ENDTAGS
+                </p>
+            </div>
+        </div>
+        ENDTAGS;
+        
         return $output;
     }
 }
+
 
 class User {
     public $name;
