@@ -51,14 +51,16 @@
                 }
             }
             echo "</div>";
+            echo "<h3>Subtotal: " . $subtotal . "</h3>";
+            $total = $subtotal * $tax;
+            echo "<h3>Total: " . number_format((float)$total, 2, '.', '') . "</h3>";
+            echo '<a href="checkout.php"><button type="submit">Checkout</button></a>';
         } else {
             echo <<<POKEMON
             <h3>No Pokemon Added to Cart</h3>
             POKEMON;
         }
-        echo "<h3>Subtotal: " . $subtotal . "</h3>";
-        $total = $subtotal * $tax;
-        echo "<h3>Total: " . number_format((float)$total, 2, '.', '') . "</h3>";
+
         ?>
 
 </main>
