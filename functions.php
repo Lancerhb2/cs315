@@ -1,5 +1,4 @@
 <?php
-session_start();
 
 // Taken from https://code-boxx.com/how-to-debug-php-code/
 // (A) ERROR REPORTING LEVEL
@@ -151,14 +150,18 @@ class Pokemon {
 
 class User {
     public $name;
-    public $email;    
+    public $email;
+    public $id;    
 
     public function __construct($sqlRow) {
         $this->email = $sqlRow['email'];
         $this->name = $sqlRow['name'];
+        $this->id = $sqlRow['id'];
     }
 
 }
+
+session_start();
 
 function test_input($data) {
     $data = trim($data);
@@ -215,6 +218,41 @@ function createUser($name, $email, $password) {
     $pdo = null;
 }
 
+function checkout($user_id, $card_number, $address) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('INSERT INTO `orders` (`user_id`, `card_number`, `address`) VALUES
+    (:user_id, :card_number, :address);');
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt->bindParam(':card_number', $card_number, PDO::PARAM_STR);
+    $stmt->bindParam(':address', $address, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
+}
+
+function fetchOrderID($user_id) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('SELECT `order_id` FROM `orders` WHERE user_id=:user_id');
+    $stmt->bindParam(':user_id', $user_id, PDO::PARAM_STR);
+    $stmt->execute();
+
+    $returnedColumn = $stmt->fetchColumn();
+    return $returnedColumn;
+}
+
+function fillOrder($order_id, $pokemon_id, $quantity) {
+    $pdo = pdo_connect_mysql();
+
+    $stmt = $pdo->prepare('INSERT INTO `order_info` (`order_id`, `pokemon_id`, `quantity`) VALUES
+    (:order_id, :pokemon_id, :quantity);');
+    $stmt->bindParam(':order_id', $order_id, PDO::PARAM_STR);
+    $stmt->bindParam(':pokemon_id', $pokemon_id, PDO::PARAM_STR);
+    $stmt->bindParam(':quantity', $quantity, PDO::PARAM_STR);
+    $stmt->execute();
+    $pdo = null;
+}
+
 function loginUser($email, $password) {
     $pdo = pdo_connect_mysql();
 
@@ -235,7 +273,7 @@ function loginUser($email, $password) {
 function fetchUser($email) {
     $pdo = pdo_connect_mysql();
 
-    $stmt = $pdo->prepare('SELECT `name`, `email` FROM `users` WHERE email=:email');
+    $stmt = $pdo->prepare('SELECT `name`, `email`, `id` FROM `users` WHERE email=:email');
     $stmt->bindParam(':email', $email, PDO::PARAM_STR);
     $stmt->execute();
 
