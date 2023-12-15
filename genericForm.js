@@ -64,6 +64,31 @@ function evaluateInput(e) {
         }
     }
 
+    if (e.target.classList.contains("hasAddress")) {
+        const address = document.getElementById("f-address").value;
+        const errorTag = document.getElementById("f-address-err");
+        if (address == null || address.length == "") {
+            e.preventDefault();
+            validInput = false;
+            errorTag.textContent = "You must enter an address.";
+        } else {
+            errorTag.textContent = "";
+        }
+    }
+
+    if (e.target.classList.contains("hasCCNumber")) {
+        const ccNumber = document.getElementById("f-ccNumber").value;
+        const errorTag = document.getElementById("f-ccNumber-err");
+        const regularExpression = /^[0-9]+$/;
+        if (!regularExpression.test(ccNumber)) {
+            e.preventDefault();
+            validInput = false;
+            errorTag.textContent = "You must enter numbers.";
+        } else {
+            errorTag.textContent = "";
+        }
+    }
+
     /*Exit if Input is invalid*/
     if (!validInput) {
         return;

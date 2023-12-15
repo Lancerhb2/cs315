@@ -65,22 +65,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     <h2>Checkout</h2>
 
-    <form id="orderForm" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+    <form id="orderForm" method="post" class="hasAddress hasCCNumber" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                 <fieldset>
                     <Legend>Enter The Checkout Information:</Legend>
                     <div class="formElement">
                         <label for="address">Address:</label>
                         <input type="text" name="address" placeholder="123 Gateway Road" id="f-address" value="<?php echo $address ?>"/>
-                        <span class="error"><?php echo $addressErr ?></span>
+                        <span class="error" id ="f-address-err"><?php echo $addressErr ?></span>
                     </div>
                     <div class="formElement">
                         <label for="ccNumber">Credit Card Number:</label>
                         <input type="text" name="ccNumber" placeholder="5555 5555 5555 5555" id="f-ccNumber" value="<?php echo $ccNumber ?>"/>
-                        <span class="error"><?php echo $ccNumberErr ?></span>
+                        <span class="error" id="f-ccNumber-err"><?php echo $ccNumberErr ?></span>
                     </div>
                     <div class="formElement">
                         <input type="submit" value="Place Order">
-                        <span class="error"><?php echo $successMsg ?></span>
+                        <span class="success"><?php echo $successMsg ?></span>
                     </div>
                 </fieldset>
             </form>
